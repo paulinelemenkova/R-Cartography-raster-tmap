@@ -37,6 +37,8 @@ crs(RedSea)
 #w
 #cat(w, "\n")
 
+s <- trim(RedSea)
+
 ############################# -- VISULIAZTION-- ######################
 RedSeaMap <- palette(RedSea)
 #plot(RedSea, col=c(blue.col(RedSeaMap[[1]]), terrain.colors(RedSeaMap[[2]])), breaks=RedSeaMap[[3]],
@@ -45,10 +47,10 @@ RedSeaMap <- palette(RedSea)
 #plot(RedSea, col=c(blue.col(RedSeaMap[[1]]), grey.col(RedSeaMap[[2]])), breaks=RedSeaMap[[3]],
  #   main="Red Sea region. \nTopographic map: GEBCO 2019",
   #  sub="Plotting: R")
-plot(RedSea, col=c(blue.col(RedSeaMap[[1]]), yel.col(RedSeaMap[[2]])), breaks=RedSeaMap[[3]],
+plot(s, col=c(blue.col(RedSeaMap[[1]]), yel.col(RedSeaMap[[2]])), breaks=RedSeaMap[[3]],
     main="Red Sea region. \nTopographic map: GEBCO 2019",
     sub="Plotting: R", npretty=4, xlab="N", ylab="E")
-contour(RedSea, add=TRUE)
+contour(s, add=TRUE)
 #scalebar(1000, xy=c(30, 11), type='bar', divs=3, below = "km")
 
 ############################# -- GRID-- ######################
