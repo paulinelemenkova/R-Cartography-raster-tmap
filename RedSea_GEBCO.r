@@ -1,8 +1,12 @@
 # set working directory to data folder
 setwd("/Users/pauline/")
 
-############################ -- COLOUR PALETTE -- ############
-# Function to calculate colour break points
+############################ -- LOAD PACKAGES -- ############
+library(sp)
+library(raster)
+library(ncdf4)
+
+############################ -- CREATE COLOUR PALETTE -- ############
 blue.col <- colorRampPalette(c("darkblue", "lightblue"))
 palette <- function(x, b1=50, b2=50, r1=-2, r2=-2) {
  mi <- cellStats(x, stat="min")-100
@@ -14,15 +18,6 @@ palette <- function(x, b1=50, b2=50, r1=-2, r2=-2) {
 }
 
 ############################# -- CROP and VISULIAZTION-- ######################
-library(sp)
-library(raster)
-library(ncdf4)
-library(RColorBrewer)
-library(lattice)
-library(latticeExtra)
-library(rasterVis)
-
-
 DEM <- raster("GEBCO_2019.nc")
 # Crop Red Sea (WESN)
 e <- extent(30, 50, 10, 30)
