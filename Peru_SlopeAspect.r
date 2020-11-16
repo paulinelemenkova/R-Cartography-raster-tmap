@@ -16,7 +16,6 @@ library(tmap)
 alt = getData("alt", country = "Peru", path = tempdir())
 
 ############################# -- Calculate terrain characteristics: SLOPE AND ASPECT -- ######################
-
 # Hillshade maps are created based on certain terrain characteristics - slope and aspect. Both of them can be calculated with the terrain function and the opt argument set to "slope" or "aspect".
 # A hillshade map can be created using the tmap package. This package builds maps by stacking different data layers. In this case, the first layer is the hillshade object (hill), colored using different levels of gray.
 
@@ -32,9 +31,10 @@ plot(hill)
 # tmaptools::palette_explorer()
 
 # initial mode: "plot"
-current.mode <- tmap_mode("plot")
+# current.mode <- tmap_mode("plot")
 
 ############################# -- SLOPE-- ######################
+tmap_mode("plot")
 map1 <-
     tmap_style("classic") +
     tm_shape(slope, name = "Slope", title = "Slope") +
@@ -63,6 +63,7 @@ map1
 tmap_save(map1, "Slope_Peru.jpg", height = 7)
 
 ############################# -- ASPECT-- ######################
+tmap_mode("plot")
 map2 <-
     tmap_style("white") +
     tm_shape(aspect, name = "Aspect") +
@@ -92,7 +93,7 @@ map2
 tmap_save(map2, "Aspect_Peru.jpg", height = 7)
 
 ############################# -- HILLSHADE-- ######################
-
+tmap_mode("plot")
 map3 <-
     tmap_style("cobalt") +
     tm_shape(hill, name = "Hillshade") +
@@ -122,11 +123,9 @@ map3
 tmap_save(map3, "Hillshade_Peru.jpg", height = 7)
 
 ############################# -- ELEVATION-- ######################
-vol <- raster::raster(t(volcano[, ncol(volcano):1]), xmn=0, xmx=870, ymn=0, ymx=610)
-isolines <- smooth_map(alt, smooth.raster = FALSE, nlevels = 10)
-isolines <- contour(alt)
-
+tmap_mode("plot")
 map4 <-
+    tmap_style("white") +
     tm_shape(alt, name = "Elevation") +
     tm_raster(
         palette = terrain.colors(10),
