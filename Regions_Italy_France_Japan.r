@@ -66,6 +66,9 @@ gg1 <- ggplot() +
  #   guides(col = guide_legend(ncol = 2, byrow = TRUE))# do this to leave off the color legend
 gg1
 
+map('italy', fill = TRUE, col = 1:95)
+map('italy', fill = TRUE, col = 1:10)
+
 ############################### -- transparent -- ##################
 
 ggplot() +
