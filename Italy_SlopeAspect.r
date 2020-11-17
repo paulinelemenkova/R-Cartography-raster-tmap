@@ -53,13 +53,24 @@ plot(hill)
 ############################# -- SLOPE-- ######################
 # tmaptools::palette_explorer()
 tmap_mode("plot")
+#data(World)
 map1 <-
-    tmap_style("classic") +
+    tmap_style("watercolor") +
+#    tm_shape(cities) +
+ #       tm_dots(size=.75, col="red") +
+#"classic"  "white", "gray", "natural", "cobalt", "col_blind", "albatross", "beaver", "bw", "watercolor"
     tm_shape(slope, name = "Slope", title = "Slope") +
     tm_raster(
-        palette = "Set2",
-        title = "Slope 0\u00B0-360\u00B0",
-        legend.show = TRUE
+        title = "Slope (0\u00B0-90\u00B0)",
+        palette = "Set1",
+      #  style = "fisher",
+      #  style = "kmeans",
+        style = "quantile", n = 6,
+        breaks = c(5, 15, 30, 60, 75, 90),
+        labels = c("gentle", "moderate", "strong", "very strong", "extreme", "steep"),
+        legend.show = T,
+        legend.hist = T,
+        legend.hist.z=0,
         ) +
     tm_scale_bar(
         width = 0.25,
@@ -70,12 +81,31 @@ map1 <-
         position=c("left", "bottom"),
         lwd = 1) +
     tm_compass(position=c("left", "bottom")) +
+    tm_graticules(
+        ticks = TRUE,
+        lines = TRUE,
+        col = "azure3", lwd = 1,
+        labels.size = .7) +
     tm_layout(scale = .8,
+        main.title = "Terrain analysis based on DEM of Italy. Mapping: R",
+        main.title.position = "center",
+        main.title.color = "black",
+        main.title.size = 0.8,
+        title = "Slope (0\u00B0-90\u00B0)",
+        title.color = "maroon4",
+        panel.labels = c("R packages: tmap, raster, sp, sf"),
+        panel.label.color = "darkslateblue",
         legend.position = c("right","top"),
         legend.bg.color = "grey90",
         legend.bg.alpha = .2,
-        legend.frame = "gray50")
-
+        legend.frame = "gray50",
+        legend.outside = FALSE,
+        legend.width = .3,
+        legend.height = .5,
+        legend.hist.height = .3,
+        legend.title.size = 0.9,
+#        bg.color="cornsilk",
+        inner.margins = 0)
 # plot map
 map1
 tmap_save(map1, "Italy_Slope.jpg", height = 7)
@@ -83,7 +113,7 @@ tmap_save(map1, "Italy_Slope.jpg", height = 7)
 ############################# -- ASPECT-- ######################
 # tmaptools::palette_explorer()
 tmap_mode("plot")
-data(World)
+#data(World)
 map2 <-
     tmap_style("col_blind") +
     tm_shape(aspect, name = "Aspect") +
