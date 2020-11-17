@@ -55,7 +55,7 @@ plot(hill)
 tmap_mode("plot")
 #data(World)
 map1 <-
-    tmap_style("watercolor") +
+    tmap_style("cobalt") +
 #    tm_shape(cities) +
  #       tm_dots(size=.75, col="red") +
 #"classic"  "white", "gray", "natural", "cobalt", "col_blind", "albatross", "beaver", "bw", "watercolor"
@@ -75,24 +75,23 @@ map1 <-
     tm_scale_bar(
         width = 0.25,
         text.size = 0.5,
-        text.color = "black",
-        color.dark = "black",
+        text.color = "darkgoldenrod1",
+        color.dark = "lightsteelblue4",
         color.light = "white",
         position=c("left", "bottom"),
         lwd = 1) +
-    tm_compass(position=c("left", "bottom")) +
-    tm_graticules(
-        ticks = TRUE,
-        lines = TRUE,
-        col = "azure3", lwd = 1,
-        labels.size = .7) +
+    tm_compass(
+        type = "radar", position=c("right", "bottom")) +
+# "arrow", "4star", "8star", "radar", "rose"
     tm_layout(scale = .8,
         main.title = "Terrain analysis based on DEM of Italy. Mapping: R",
         main.title.position = "center",
         main.title.color = "black",
         main.title.size = 0.8,
         title = "Slope (0\u00B0-90\u00B0)",
-        title.color = "maroon4",
+        title.color = "darkgoldenrod1",
+        title.size = 0.9,
+        title.position = c("left", "top"),
         panel.labels = c("R packages: tmap, raster, sp, sf"),
         panel.label.color = "darkslateblue",
         legend.position = c("right","top"),
@@ -105,7 +104,13 @@ map1 <-
         legend.hist.height = .3,
         legend.title.size = 0.9,
 #        bg.color="cornsilk",
-        inner.margins = 0)
+        inner.margins = 0) +
+    tm_graticules(
+        ticks = TRUE,
+        lines = TRUE,
+        labels.rot = c(15, 15),
+        col = "azure3", lwd = 1,
+        labels.size = .7)
 # plot map
 map1
 tmap_save(map1, "Italy_Slope.jpg", height = 7)
@@ -115,7 +120,7 @@ tmap_save(map1, "Italy_Slope.jpg", height = 7)
 tmap_mode("plot")
 #data(World)
 map2 <-
-    tmap_style("col_blind") +
+    tmap_style("cobalt") +
     tm_shape(aspect, name = "Aspect") +
     tm_raster(
         title = "Aspect (West-East-South-North)",
@@ -128,17 +133,19 @@ map2 <-
     tm_scale_bar(
         width = 0.25,
         text.size = 0.5,
-        text.color = "black",
-        color.dark = "black",
+        text.color = "darkgoldenrod1",
+        color.dark = "lightsteelblue4",
         color.light = "white",
         position=c("left", "bottom"),
         lwd = 1,
         ) +
-    tm_compass(position=c("right", "bottom")) +
+    tm_compass(
+        type = "radar", position=c("right", "bottom")) +
     tm_graticules(
         ticks = TRUE,
         lines = TRUE,
         col = "azure3", lwd = 1,
+        labels.rot = c(15, 15),
         labels.size = .7) +
 #    tm_graticules(ticks = TRUE, n.x = 4, n.y = 3) +
    # tm_grid(labels.inside.frame = FALSE) +
@@ -149,7 +156,9 @@ map2 <-
         main.title.size = 0.8,
         title = "Aspect (W-E-S-N)",
 #Aspect is the compass direction that the slope of the terrain faces (W, E, S, N, S, NE, SE, SW, NW)
-        title.color = "maroon4",
+        title.color = "darkgoldenrod1",
+        title.size = 0.9,
+        title.position = c("left", "top"),
         panel.labels = c("R packages: tmap, raster, sp, sf"),
         panel.label.color = "darkslateblue",
         legend.position = c("right","top"),
@@ -161,7 +170,7 @@ map2 <-
         legend.height =.6,
         legend.hist.height =.15,
         legend.title.size = 0.9,
-        bg.color="cornsilk",
+       # bg.color="cornsilk",
        # inner.margins=c(.04,.03, .02, .01),
         inner.margins = 0)
 # plot map
@@ -172,38 +181,66 @@ tmap_save(map2, "Italy_Aspect.jpg", height = 7)
 # tmaptools::palette_explorer()
 tmap_mode("plot")
 map3 <-
-    tmap_style("cobalt") +
-    tm_shape(hill, name = "Hillshade") +
+    tmap_style("white") +
+#    tm_shape(cities) +
+ #       tm_dots(size=.75, col="red") +
+#"classic"  "white", "gray", "natural", "cobalt", "col_blind", "albatross", "beaver", "bw", "watercolor"
+    tm_shape(hill, name = "Hillshade", title = "Slope",
+        auto.palette.mapping = FALSE,) +
     tm_raster(
-        palette = "PiYG",
-        title = "Hillshade",
-        legend.show = TRUE
+        title = "Slope (0\u00B0-90\u00B0)",
+        palette = "Greys",
+     #   style = "fisher",
+        style = "kmeans",
+      #  breaks = c(5, 15, 30, 60, 75, 90),
+    #    labels = c("gentle", "moderate", "strong", "very strong", "extreme", "steep"),
+        legend.show = T,
+        legend.hist = T,
+        legend.hist.z=0,
         ) +
     tm_scale_bar(
         width = 0.25,
         text.size = 0.5,
-        text.color = "white",
-        color.dark = "grey",
+        text.color = "black",
+        color.dark = "black",
         color.light = "white",
         position=c("left", "bottom"),
-        lwd = 1,
-        ) +
+        lwd = 1) +
     tm_compass(position=c("right", "bottom")) +
-    tm_credits("WGS84 datum", position = c("right", "bottom")) +
     tm_layout(scale = .8,
-        main.title = "Italy",
+        main.title = "Terrain analysis based on DEM of Italy. Mapping: R",
         main.title.position = "center",
-        main.title.color = "blue",
-        title = c("Elevation (m asl)", "Title 2"),
-        title.color = "red",
+        main.title.color = "black",
+        main.title.size = 0.8,
+        title = "Hillshade (0\u00B0-90\u00B0)",
+        title.color = "grey",
+        panel.labels = c("R packages: tmap, raster, sp, sf"),
+        panel.label.color = "darkslateblue",
         legend.position = c("right","top"),
         legend.bg.color = "grey90",
         legend.bg.alpha = .2,
-        legend.frame = "gray50")
-
+        legend.frame = "gray50",
+        legend.outside = FALSE,
+        legend.width = .3,
+        legend.height = .5,
+        legend.hist.height = .3,
+        legend.title.size = 0.9,
+#        bg.color="cornsilk",
+        inner.margins = 0) +
+    tm_graticules(
+        ticks = TRUE,
+        lines = TRUE,
+        col = "azure3",
+        lwd = 1,
+        labels.size = .7,
+# labels.rot = c(30, 30),
+        labels.col = "black") +
 # plot map
 map3
 tmap_save(map3, "Italy_Hillshade.jpg", height = 7)
+
+Threemaps <- tmap_arrange(map1, map2)
+Threemaps
 
 ############################# -- ELEVATION-- ######################
 # tmaptools::palette_explorer()
