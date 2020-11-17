@@ -58,7 +58,7 @@ map1 <-
     tm_shape(slope, name = "Slope", title = "Slope") +
     tm_raster(
         palette = "Set2",
-        title = "Slope",
+        title = "Slope 0\u00B0-360\u00B0",
         legend.show = TRUE
         ) +
     tm_scale_bar(
@@ -80,20 +80,20 @@ map1 <-
 map1
 tmap_save(map1, "Italy_Slope.jpg", height = 7)
 
-# library(sf)
-# st_graticule Compute graticules and their parameters
-g = st_graticule(alt, lon = c(-85, -70), lat = c(-20, -10, 0))
-
 ############################# -- ASPECT-- ######################
 # tmaptools::palette_explorer()
 tmap_mode("plot")
+data(World)
 map2 <-
-    tmap_style("white") +
+    tmap_style("col_blind") +
     tm_shape(aspect, name = "Aspect") +
     tm_raster(
-        #palette = "Spectral",
-        title = "Aspect",
-        legend.show = TRUE
+        title = "Aspect (West-East-South-North)",
+        palette = "Spectral",
+        legend.show = TRUE,
+        legend.hist = TRUE,
+        style = "sd",
+        legend.hist.z=0,
         ) +
     tm_scale_bar(
         width = 0.25,
@@ -104,20 +104,36 @@ map2 <-
         position=c("left", "bottom"),
         lwd = 1,
         ) +
-    tm_compass(position=c("left", "bottom")) +
+    tm_compass(position=c("right", "bottom")) +
+    tm_graticules(
+        ticks = TRUE,
+        lines = TRUE,
+        col = "azure3", lwd = 1,
+        labels.size = .7) +
+#    tm_graticules(ticks = TRUE, n.x = 4, n.y = 3) +
+   # tm_grid(labels.inside.frame = FALSE) +
     tm_layout(scale = .8,
-        main.title = "Italy",
+        main.title = "Terrain analysis based on DEM of Italy. Mapping: R",
         main.title.position = "center",
-        main.title.color = "blue",
-        title = c("Aspect (0-360)"),
-        title.color = "red",
+        main.title.color = "black",
+        main.title.size = 0.8,
+        title = "Aspect (W-E-S-N)",
+#Aspect is the compass direction that the slope of the terrain faces (W, E, S, N, S, NE, SE, SW, NW)
+        title.color = "maroon4",
         panel.labels = c("R packages: tmap, raster, sp, sf"),
-        panel.label.color = "purple",
+        panel.label.color = "darkslateblue",
         legend.position = c("right","top"),
         legend.bg.color = "grey90",
         legend.bg.alpha = .2,
-        legend.frame = "gray50")
-
+        legend.frame = "gray50",
+        legend.outside = FALSE,
+        legend.width =.35,
+        legend.height =.6,
+        legend.hist.height =.15,
+        legend.title.size = 0.9,
+        bg.color="cornsilk",
+       # inner.margins=c(.04,.03, .02, .01),
+        inner.margins = 0)
 # plot map
 map2
 tmap_save(map2, "Italy_Aspect.jpg", height = 7)
