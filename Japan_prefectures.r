@@ -18,6 +18,12 @@ dim(japan)
 head(japan)
 tail(japan)
 
+############################# -- CHECK UP AVAILABLE FONTS -- ######################
+library(showtext)
+font_families()
+font_paths()
+font_files()
+
 ############################### -- regions Japan, expanding color palettes(1) -- ##################
 # inspect number of variable (prefectures of Japan)
 length(unique(japan$region))
@@ -39,8 +45,8 @@ gg1 <- ggplot() +
         subtitle = "Mapping: R",
         caption = "Packages: ggmap, ggplot2, mapdata, maps") +
     theme(legend.title = element_text(colour="blue", size=16, face="bold"),
-        plot.title = element_text(family = "Helvetica", colour="blue", size=16, face="bold"),
-        plot.subtitle = element_text(family = "Helvetica", colour="blue", face = "plain", size = 14),
+        plot.title = element_text(family = "Chalkboard", colour="blue", size=16, face="bold"),
+        plot.subtitle = element_text(family = "Chalkboard", colour="blue", face = "plain", size = 14),
         plot.caption = element_text(face = "italic", size = 10),
         legend.box = "vertical",
         legend.box.background = element_rect(colour = "honeydew4",size=0.2),
