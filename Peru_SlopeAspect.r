@@ -25,130 +25,270 @@ aspect = terrain(alt, opt = "aspect")
 plot(aspect)
 hill = hillShade(slope, aspect, angle = 40, direction = 270)
 plot(hill)
+plot(alt)
 
+############################# -- COORDINATE SYSTEM -- ######################
+# e <- extent(-85, -70, -20, 1)
+crs(slope)
+# CRS arguments: +proj=longlat +datum=WGS84 +no_defs
+crs(slope) <- "+proj=lcc +lat_1=-14 +lat_2=-7 +lon_0=-77 +datum=WGS84"
+crs(slope)
+s <- trim(Peru)
+
+
+plot(alt, graticule = st_crs(4326), axes = TRUE, lon = seq(-85, -70, by=5))
 ############################# -- Thematic Mapping -- ######################
-
-# tmaptools::palette_explorer()
-
 # initial mode: "plot"
 # current.mode <- tmap_mode("plot")
 
 ############################# -- SLOPE-- ######################
+# tmaptools::palette_explorer()
 tmap_mode("plot")
+#data(World)
 map1 <-
-    tmap_style("classic") +
+    tmap_style("watercolor") +
+#"classic"  "white", "gray", "natural", "cobalt", "col_blind", "albatross", "beaver", "bw", "watercolor"
     tm_shape(slope, name = "Slope", title = "Slope") +
     tm_raster(
-        palette = "-plasma",
-        title = "Slope",
-        legend.show = TRUE
+        title = "Slope (0\u00B0-90\u00B0)",
+        palette = "Set1",
+      #  style = "fisher",
+      #  style = "kmeans",
+        style = "quantile", n = 6,
+        breaks = c(5, 15, 30, 60, 75, 90),
+#        labels = c("gentle", "moderate", "strong", "very strong", "steep", "extreme"),
+        legend.show = T,
+        legend.hist = T,
+        legend.hist.z=0,
         ) +
     tm_scale_bar(
         width = 0.25,
-        text.size = 0.5,
+        text.size = 0.9,
         text.color = "black",
         color.dark = "black",
         color.light = "white",
         position=c("left", "bottom"),
         lwd = 1) +
-    tm_compass(position=c("left", "bottom")) +
+    tm_compass(
+        type = "radar", position=c("right", "top"), size = 6.0) +
+# "arrow", "4star", "8star", "radar", "rose"
     tm_layout(scale = .8,
-        legend.position = c("left","top"),
+        main.title = "Slope terrain analysis based on DEM of Peru. Mapping: R",
+        main.title.position = "center",
+        main.title.color = "black",
+        main.title.size = 1.1,
+        title = "Slope (0\u00B0-90\u00B0)",
+        title.color = "black",
+        title.size = 1.2,
+        title.position = c("left", "top"),
+        panel.labels = c("R packages: tmap, raster, sp, sf"),
+        panel.label.color = "darkslateblue",
+        panel.label.size = 1.0,
+        legend.position = c("left","bottom"),
         legend.bg.color = "grey90",
         legend.bg.alpha = .2,
-        legend.frame = "gray50")
-
+#        legend.frame = "gray50",
+        legend.outside = FALSE,
+        legend.width = .3,
+        legend.height = .5,
+        legend.hist.height = .3,
+        legend.title.size = 0.9,
+        legend.text.size = 0.9,
+#        bg.color="cornsilk",
+        inner.margins = 0) +
+    tm_graticules(
+        ticks = TRUE,
+        lines = TRUE,
+        labels.rot = c(15, 15),
+        col = "azure3", lwd = 1,
+        labels.size = 1.0)
 # plot map
 map1
-tmap_save(map1, "Slope_Peru.jpg", height = 7)
+tmap_save(map1, "Peru_Slope.jpg", dpi = 300, height = 10)
 
 ############################# -- ASPECT-- ######################
 tmap_mode("plot")
 map2 <-
     tmap_style("white") +
-    tm_shape(aspect, name = "Aspect") +
+#"classic"  "white", "gray", "natural", "cobalt", "col_blind", "albatross", "beaver", "bw", "watercolor"
+    tm_shape(aspect, name = "Slope", title = "Slope") +
     tm_raster(
+        title = "Aspect (West-East-South-North)",
         palette = "Spectral",
-        title = "Aspect",
-        legend.show = TRUE
+      #  style = "fisher",
+      #  style = "kmeans",
+        style = "quantile", n = 6,
+        breaks = c(5, 15, 30, 60, 75, 90),
+#        labels = c("gentle", "moderate", "strong", "very strong", "steep", "extreme"),
+        legend.show = T,
+        legend.hist = T,
+        legend.hist.z=0,
         ) +
     tm_scale_bar(
         width = 0.25,
-        text.size = 0.5,
-        text.color = "black",
-        color.dark = "black",
-        color.light = "white",
-        position=c("left", "bottom"),
-        lwd = 1,
-        ) +
-    tm_compass(position=c("left", "bottom")) +
-    tm_layout(scale = .8,
-        legend.position = c("left","top"),
-        legend.bg.color = "grey90",
-        legend.bg.alpha = .2,
-        legend.frame = "gray50")
-
-# plot map
-map2
-tmap_save(map2, "Aspect_Peru.jpg", height = 7)
-
-############################# -- HILLSHADE-- ######################
-tmap_mode("plot")
-map3 <-
-    tmap_style("cobalt") +
-    tm_shape(hill, name = "Hillshade") +
-    tm_raster(
-        palette = "PiYG",
-        title = "Hillshade",
-        legend.show = TRUE
-        ) +
-    tm_scale_bar(
-        width = 0.25,
-        text.size = 0.5,
-        text.color = "white",
-        color.dark = "grey",
-        color.light = "white",
-        position=c("left", "bottom"),
-        lwd = 1,
-        ) +
-    tm_compass(position=c("right", "bottom")) +
-    tm_layout(scale = .8,
-        legend.position = c("left","top"),
-        legend.bg.color = "grey90",
-        legend.bg.alpha = .2,
-        legend.frame = "gray50")
-
-# plot map
-map3
-tmap_save(map3, "Hillshade_Peru.jpg", height = 7)
-
-############################# -- ELEVATION-- ######################
-tmap_mode("plot")
-map4 <-
-    tmap_style("white") +
-    tm_shape(alt, name = "Elevation") +
-    tm_raster(
-        palette = terrain.colors(10),
-        title = "Elevation (m asl)",
-        legend.show = TRUE) +
-    tm_scale_bar(
-        width = 0.25,
-        text.size = 0.5,
+        text.size = 0.9,
         text.color = "black",
         color.dark = "black",
         color.light = "white",
         position=c("left", "bottom"),
         lwd = 1) +
-    tm_compass(position=c("left", "bottom")) +
+    tm_compass(
+        type = "rose", position=c("right", "top"), size = 6.0) +
+# "arrow", "4star", "8star", "radar", "rose"
     tm_layout(scale = .8,
-        legend.position = c("left","top"),
+        main.title = "Aspect terrain analysis based on DEM of Peru. Mapping: R",
+        main.title.position = "center",
+        main.title.color = "black",
+        main.title.size = 1.1,
+        title = "Aspect (W-E-S-N)",
+        title.color = "black",
+        title.size = 1.2,
+        title.position = c("left", "top"),
+        panel.labels = c("R packages: tmap, raster, sp, sf"),
+        panel.label.color = "darkslateblue",
+        panel.label.size = 1.0,
+        legend.position = c("left","bottom"),
         legend.bg.color = "grey90",
         legend.bg.alpha = .2,
-        legend.frame = "gray50")
+#        legend.frame = "gray50",
+        legend.outside = FALSE,
+        legend.width = .3,
+        legend.height = .5,
+        legend.hist.height = .3,
+        legend.title.size = 0.9,
+        legend.text.size = 0.9,
+#        bg.color="cornsilk",
+        inner.margins = 0) +
+    tm_graticules(
+        ticks = TRUE,
+        lines = TRUE,
+        labels.rot = c(15, 15),
+        col = "azure3", lwd = 1,
+        labels.size = 1.0)
+# plot map
+map2
+tmap_save(map2, "Peru_Aspect.jpg", dpi = 300, height = 10)
 
+############################# -- HILLSHADE-- ######################
+# tmaptools::palette_explorer()
+tmap_mode("plot")
+map3 <-
+    tmap_style("cobalt") +
+#"classic"  "white", "gray", "natural", "cobalt", "col_blind", "albatross", "beaver", "bw", "watercolor"
+    tm_shape(hill, name = "Hillshade", title = "Hillshade",
+        auto.palette.mapping = FALSE,) +
+    tm_raster(
+        title = "Histogram \n(data distribution)",
+        palette = "cividis",
+        style = "kmeans",
+        legend.show = T,
+        legend.hist = T,
+        legend.hist.z=0,
+        ) +
+    tm_scale_bar(
+        width = 0.25,
+        text.size = 0.9,
+        text.color = "white",
+        color.dark = "grey",
+        color.light = "white",
+        position=c("left", "bottom"),
+        lwd = 1) +
+    tm_compass(
+        type = "arrow", position=c("right", "top"), size = 5.0) +
+# "arrow", "4star", "8star", "radar", "rose"
+    tm_layout(scale = .8,
+        main.title = "Hillshade terrain analysis based on DEM of Peru. Mapping: R",
+        main.title.position = "center",
+        main.title.color = "black",
+        main.title.size = 1.1,
+        title = "Hillshade (0\u00B0-90\u00B0)",
+        title.color = "darkgoldenrod1",
+        title.size = 1.1,
+        title.position = c("left", "top"),
+        panel.labels = c("R packages: tmap, raster, sp, sf"),
+        panel.label.color = "darkslateblue",
+        panel.label.size = 1.0,
+        legend.position = c("left","bottom"),
+        legend.bg.color = "grey90",
+        legend.bg.alpha = .2,
+        legend.frame = "gray50",
+        legend.outside = FALSE,
+        legend.width = .3,
+        legend.height = .5,
+        legend.hist.height = .2,
+        legend.title.size = 1.1,
+        legend.text.size = 0.9,
+#        bg.color="cornsilk",
+        inner.margins = 0) +
+    tm_graticules(
+        ticks = TRUE,
+        lines = TRUE,
+        col = "azure3",
+        lwd = 1,
+        labels.size = 1.0,
+# labels.rot = c(30, 30),
+        labels.col = "black")
+# plot map
+map3
+tmap_save(map3, "Peru_Hillshade.jpg", height = 10)
+
+############################# -- ELEVATION-- ######################
+tmap_mode("plot")
+map4 <-
+    tmap_style("white") +
+#"classic"  "white", "gray", "natural", "cobalt", "col_blind", "albatross", "beaver", "bw", "watercolor"
+    tm_shape(alt, name = "Elevation", title = "Elevation") +
+    tm_raster(
+        title = "Elevation (m asl)",
+        palette = terrain.colors(256),
+        legend.show = T,
+        legend.hist = T,
+        legend.hist.z=0,
+        ) +
+    tm_scale_bar(
+        width = 0.25,
+        text.size = 0.9,
+        text.color = "black",
+        color.dark = "black",
+        color.light = "white",
+        position=c("left", "bottom"),
+        lwd = 1) +
+    tm_compass(
+        type = "8star", position=c("right", "top"), size = 6.0) +
+# "arrow", "4star", "8star", "radar", "rose"
+    tm_layout(scale = .8,
+        main.title = "Elevation terrain analysis based on DEM of Peru. Mapping: R",
+        main.title.position = "center",
+        main.title.color = "black",
+        main.title.size = 1.1,
+        title = "Elevation (m)",
+        title.color = "black",
+        title.size = 1.2,
+        title.position = c("left", "top"),
+        panel.labels = c("R packages: tmap, raster, sp, sf"),
+        panel.label.color = "darkslateblue",
+        panel.label.size = 1.0,
+        legend.position = c("left","bottom"),
+        legend.bg.color = "grey90",
+        legend.bg.alpha = .2,
+#        legend.frame = "gray50",
+        legend.outside = FALSE,
+        legend.width = .3,
+        legend.height = .5,
+        legend.hist.height = .3,
+        legend.title.size = 0.9,
+        legend.text.size = 0.9,
+#        bg.color="cornsilk",
+        inner.margins = 0) +
+    tm_graticules(
+        ticks = TRUE,
+        lines = TRUE,
+        labels.rot = c(15, 15),
+        col = "azure3", lwd = 1,
+        labels.size = 1.0)
 # plot map
 map4
-tmap_save(map4, "Elevation_Peru.jpg", height = 7)
+tmap_save(map4, "Peru_Elevation.jpg", dpi = 300, height = 10)
 
 ############################# -- HISTOGRAMS-- ######################
 hist(hill, maxpixels=100000, plot=TRUE)
