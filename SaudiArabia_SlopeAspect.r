@@ -123,7 +123,7 @@ map2 <-
         type = "rose", position=c("right", "top"), size = 10.0) +
 # "arrow", "4star", "8star", "radar", "rose"
     tm_layout(scale = .8,
-        main.title = "Aspect terrain analysis based on DEM of Saudi_Arabia. Mapping: R",
+        main.title = "Aspect terrain analysis based on DEM of Saudi Arabia. Mapping: R",
         main.title.position = "center",
         main.title.color = "black",
         main.title.size = 0.9,
@@ -188,7 +188,7 @@ map3 <-
         type = "rose", position=c("right", "top"), size = 10.0) +
 # "arrow", "4star", "8star", "radar", "rose"
     tm_layout(scale = .9,
-        main.title = "Hillshade terrain analysis based on DEM of Saudi_Arabia. Mapping: R",
+        main.title = "Hillshade terrain analysis based on DEM of Saudi Arabia. Mapping: R",
         main.title.position = "center",
         main.title.color = "black",
         main.title.size = 1.0,
@@ -248,7 +248,7 @@ map4 <-
         type = "8star", position=c("right", "top"), size = 10.0) +
 # "arrow", "4star", "8star", "radar", "rose"
     tm_layout(scale = .8,
-        main.title = "Elevation terrain analysis based on DEM of Saudi_Arabia. Mapping: R",
+        main.title = "Elevation terrain analysis based on DEM of Saudi Arabia. Mapping: R",
         main.title.position = "center",
         main.title.color = "black",
         main.title.size = 1.0,
