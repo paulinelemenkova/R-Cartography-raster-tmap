@@ -181,13 +181,13 @@ map3 <-
     tm_scale_bar(
         width = 0.25,
         text.size = 0.9,
-        text.color = "white",
-        color.dark = "grey",
+        text.color = "black",
+        color.dark = "black",
         color.light = "white",
         position=c("center", "bottom"),
         lwd = 1) +
     tm_compass(
-        type = "rose", position=c("right", "top"), size = 10.0) +
+        type = "rose", position=c("right", "top"), size = 7.0) +
 # "arrow", "4star", "8star", "radar", "rose"
     tm_layout(scale = .9,
         main.title = "Hillshade terrain analysis based on DEM of Lebanon. Mapping: R",
@@ -195,13 +195,13 @@ map3 <-
         main.title.color = "black",
         main.title.size = 1.0,
         title = "Hillshade (0\u00B0-90\u00B0)",
-        title.color = "darkgoldenrod1",
+        title.color = "black",
         title.size = 1.0,
         title.position = c("left", "top"),
         panel.labels = c("R packages: tmap, raster, sp, sf"),
         panel.label.color = "darkslateblue",
         panel.label.size = 1.0,
-        legend.position = c("left","bottom"),
+        legend.position = c("right","bottom"),
         legend.bg.color = "grey90",
         legend.bg.alpha = .2,
         legend.frame = "gray50",
@@ -219,7 +219,7 @@ map3 <-
         col = "azure3",
         lwd = 1,
         labels.size = 1.0,
-# labels.rot = c(30, 30),
+        labels.rot = c(15, 15),
         labels.col = "black")
 # plot map
 map3
@@ -236,7 +236,7 @@ map4 <-
         title = "Elevation (m asl)",
         #palette = "-BrBG",
         palette = terrain.colors(256),
-        style = "quantile", n = 20,
+        style = "quantile", n = 30,
         legend.show = T,
         legend.hist = T,
         legend.hist.z=0,
@@ -247,10 +247,10 @@ map4 <-
         text.color = "black",
         color.dark = "black",
         color.light = "white",
-        position=c("right", "bottom"),
+        position=c("center", "bottom"),
         lwd = 1) +
     tm_compass(
-        type = "8star", position=c("right", "top"), size = 10.0) +
+        type = "8star", position=c("right", "top"), size = 7.0) +
 # "arrow", "4star", "8star", "radar", "rose"
     tm_layout(scale = .8,
         main.title = "Elevation terrain analysis based on DEM of Lebanon. Mapping: R",
@@ -264,7 +264,7 @@ map4 <-
         panel.labels = c("R packages: tmap, raster, sp, sf"),
         panel.label.color = "darkslateblue",
         panel.label.size = 1.0,
-        legend.position = c("left","bottom"),
+        legend.position = c("right","bottom"),
         legend.bg.color = "grey90",
         legend.bg.alpha = .2,
 #        legend.frame = "gray50",
@@ -289,7 +289,7 @@ tmap_save(map4, "Lebanon_Elevation.jpg", dpi = 300, height = 10)
 
 Twomaps <- tmap_arrange(map3, map4)
 Twomaps
-tmap_save(Twomaps, "Serbia_HillElev.jpg", dpi = 300, height = 10, width = 15)
+tmap_save(Twomaps, "Lebanon_HillElev.jpg", dpi = 300, height = 9, width = 15.5)
 
 ############################# -- HISTOGRAMS-- ######################
 hist(hill, maxpixels=100000, plot=TRUE)
