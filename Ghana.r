@@ -183,13 +183,13 @@ map3 <-
     tm_scale_bar(
         width = 0.25,
         text.size = 0.9,
-        text.color = "black",
-        color.dark = "black",
+        text.color = "white",
+        color.dark = "gray",
         color.light = "white",
-        position=c("left", "bottom"),
+        position=c("center", "bottom"),
         lwd = 1) +
     tm_compass(
-        type = "8star", position=c("right", "top"), size = 7.0) +
+        type = "8star", position=c("right", "bottom"), size = 7.0) +
 # "arrow", "4star", "8star", "radar", "rose"
     tm_layout(scale = .9,
         main.title = "Hillshade terrain analysis based on DEM of Ghana. Mapping: R",
@@ -203,16 +203,16 @@ map3 <-
         panel.labels = c("R packages: tmap, raster, sp, sf"),
         panel.label.color = "darkslateblue",
         panel.label.size = 1.0,
-        legend.position = c("right","bottom"),
+        legend.position = c("right","top"),
         legend.bg.color = "grey90",
         legend.bg.alpha = .2,
         legend.frame = "gray50",
         legend.outside = FALSE,
         legend.width = .3,
-        legend.height = .5,
+        legend.height = .4,
         legend.hist.height = 0.15,
         legend.title.size = 1.1,
-        legend.text.size = 0.9,
+        legend.text.size = 0.6,
 #        bg.color="cornsilk",
         inner.margins = 0) +
     tm_graticules(
@@ -238,7 +238,7 @@ map4 <-
         title = "Elevation (m asl)",
         #palette = "-BrBG",
         palette = terrain.colors(256),
-        style = "quantile", n = 30,
+        style = "quantile", n = 15,
         legend.show = T,
         legend.hist = T,
         legend.hist.z=0,
@@ -252,7 +252,7 @@ map4 <-
         position=c("left", "bottom"),
         lwd = 1) +
     tm_compass(
-        type = "4star", position=c("right", "bottom"), size = 7.0) +
+        type = "4star", position=c("right", "top"), size = 7.0) +
 # "arrow", "4star", "8star", "radar", "rose"
     tm_layout(scale = .8,
         main.title = "Elevation terrain analysis based on DEM of Ghana. Mapping: R",
@@ -266,14 +266,15 @@ map4 <-
         panel.labels = c("R packages: tmap, raster, sp, sf"),
         panel.label.color = "darkslateblue",
         panel.label.size = 1.0,
-        legend.position = c("right","top"),
+        legend.position = c("right","bottom"),
         legend.bg.color = "grey90",
         legend.bg.alpha = .2,
 #        legend.frame = "gray50",
         legend.outside = FALSE,
-        legend.width = .9,
-        legend.height = .3,
-        legend.hist.height = .2,
+        legend.width = .3,
+        legend.hist.width = .3,
+        legend.height = .25,
+        legend.hist.height = .1,
         legend.title.size = 0.9,
         legend.text.size = 0.6,
         legend.stack = "horizontal",
