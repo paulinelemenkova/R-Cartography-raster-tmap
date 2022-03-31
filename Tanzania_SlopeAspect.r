@@ -37,7 +37,9 @@ map1 <-
     tm_shape(slope, name = "Slope", title = "Slope") +
     tm_raster(
         title = "Slope (0\u00B0-90\u00B0)",
-        palette = "plasma",
+      #  palette = "plasma",
+       # palette = "BrBG",
+     palette = "viridis",
       #  style = "fisher",
       #  style = "kmeans",
         style = "quantile", n = 6,
@@ -48,21 +50,21 @@ map1 <-
         legend.hist.z=0,
         ) +
     tm_scale_bar(
-        width = 0.25,
+        width = 0.10,
         text.size = 0.8,
         text.color = "black",
         color.dark = "black",
-        color.light = "white",
-        position=c("left", "bottom"),
+        color.light = "black",
+        position=c("right", "bottom"),
         lwd = 1) +
     tm_compass(
         type = "radar", position=c("right", "top"), size = 10.0) +
 # "arrow", "4star", "8star", "radar", "rose"
     tm_layout(scale = .8,
-        main.title = "Slope terrain analysis based on DEM of Tanzania. Mapping: R",
+        main.title = "Slope terrain map based on DEM of Tanzania. Mapping: R",
         main.title.position = "center",
         main.title.color = "black",
-        main.title.size = 1.0,
+        main.title.size = 1.1,
         title = "Slope (0\u00B0-90\u00B0)",
         title.color = "black",
         title.size = 1.0,
@@ -78,8 +80,8 @@ map1 <-
         legend.width = .3,
         legend.height = .5,
         legend.hist.height = .2,
-        legend.title.size = 0.9,
-        legend.text.size = 0.8,
+        legend.title.size = 1.5,
+        legend.text.size = 1.2,
 #        bg.color="cornsilk",
         inner.margins = 0) +
     tm_graticules(
@@ -95,7 +97,8 @@ tmap_save(map1, "Tanzania_Slope.jpg", dpi = 300, height = 10)
 ############################# -- ASPECT-- ######################
 tmap_mode("plot")
 map2 <-
-    tmap_style("albatross") +
+#    tmap_style("albatross") +
+    tmap_style("white") +
 #"classic"  "white", "gray", "natural", "cobalt", "col_blind", "albatross", "beaver", "bw", "watercolor"
     tm_shape(aspect, name = "Slope", title = "Slope") +
     tm_raster(
@@ -103,20 +106,21 @@ map2 <-
         palette = "Spectral",
       #  style = "fisher",
       #  style = "kmeans",
-        style = "quantile", n = 8,
-        breaks = c(5, 15, 30, 60, 75, 90),
+        style = "quantile", n = 5,
+#        breaks = c(5, 15, 30, 60, 75, 90),
+        breaks = c(10, 25, 40, 65, 75, 90),
 #        labels = c("gentle", "moderate", "strong", "very strong", "steep", "extreme"),
         legend.show = T,
         legend.hist = T,
         legend.hist.z=0,
         ) +
     tm_scale_bar(
-        width = 0.25,
+        width = 0.10,
         text.size = 0.9,
-        text.color = "white",
+        text.color = "black",
         color.dark = "black",
         color.light = "white",
-        position=c("center", "bottom"),
+        position=c("right", "bottom"),
         lwd = 1) +
     tm_compass(
         type = "rose", position=c("right", "top"), size = 10.0) +
@@ -127,22 +131,25 @@ map2 <-
         main.title.color = "black",
         main.title.size = 0.9,
         title = "Aspect \n(W-E-S-N)",
-        title.color = "white",
+        title.color = "black",
         title.size = 1.0,
         title.position = c("left", "top"),
         panel.labels = c("R packages: tmap, raster, sp, sf"),
         panel.label.color = "darkslateblue",
         panel.label.size = 1.0,
         legend.position = c("left","bottom"),
-        legend.bg.color = "grey90",
+#        legend.bg.color = "grey90",
+        legend.bg.color = "white",
         legend.bg.alpha = .2,
 #        legend.frame = "gray50",
         legend.outside = FALSE,
         legend.width = .3,
         legend.height = .4,
-        legend.hist.height = .15,
-        legend.title.size = 0.9,
-        legend.text.size = 0.9,
+        legend.hist.height = .20,
+        legend.title.size = 1.5,
+        legend.text.size = 1.1,
+        legend.title.color = "black",
+        legend.text.color = "black",
 #        bg.color="cornsilk",
         inner.margins = 0) +
     tm_graticules(
@@ -168,21 +175,24 @@ map3 <-
     tm_shape(hill, name = "Hillshade", title = "Hillshade",
         auto.palette.mapping = FALSE,) +
     tm_raster(
-        title = "Histogram \n(data distribution)",
-        palette = "cividis",
+        title = "Legend",
+       # palette = "cividis",
+        palette = "inferno",
         #style = "kmeans",
         style = "quantile", n = 10,
         legend.show = T,
-        legend.hist = T,
-        legend.hist.z=0,
+#        legend.hist = T,
+        legend.hist = F,
+ #       legend.hist.z=0,
         ) +
     tm_scale_bar(
-        width = 0.25,
+        width = 0.10,
         text.size = 0.9,
         text.color = "white",
         color.dark = "grey",
         color.light = "white",
-        position=c("center", "bottom"),
+  #      position=c("left", "bottom"),
+        position = NA,
         lwd = 1) +
     tm_compass(
         type = "rose", position=c("right", "top"), size = 10.0) +
@@ -193,7 +203,7 @@ map3 <-
         main.title.color = "black",
         main.title.size = 1.0,
         title = "Hillshade (0\u00B0-90\u00B0)",
-        title.color = "darkgoldenrod1",
+        title.color = "black",
         title.size = 1.0,
         title.position = c("left", "top"),
         panel.labels = c("R packages: tmap, raster, sp, sf"),
@@ -201,14 +211,17 @@ map3 <-
         panel.label.size = 1.0,
         legend.position = c("left","bottom"),
         legend.bg.color = "grey90",
-        legend.bg.alpha = .2,
+        legend.bg.alpha = .8,
         legend.frame = "gray50",
         legend.outside = FALSE,
+  #      legend.outside = TRUE,
         legend.width = .3,
         legend.height = .5,
         legend.hist.height = 0.15,
+        legend.title.color = "black",
         legend.title.size = 1.1,
         legend.text.size = 0.9,
+        legend.text.color = "black",
 #        bg.color="cornsilk",
         inner.margins = 0) +
     tm_graticules(
@@ -234,14 +247,14 @@ map4 <-
         title = "Elevation (m asl)",
         #palette = "-BrBG",
         palette = terrain.colors(256),
-        style = "quantile", n = 20,
+        style = "quantile", n = 10,
         legend.show = T,
         legend.hist = T,
         legend.hist.z=0,
         ) +
     tm_scale_bar(
         width = 0.25,
-        text.size = 0.9,
+        text.size = 1.0,
         text.color = "black",
         color.dark = "black",
         color.light = "white",
@@ -254,7 +267,7 @@ map4 <-
         main.title = "Elevation terrain analysis based on DEM of Tanzania. Mapping: R",
         main.title.position = "center",
         main.title.color = "black",
-        main.title.size = 1.0,
+        main.title.size = 1.1,
         title = "Elevation (m)",
         title.color = "black",
         title.size = 1.0,
@@ -267,11 +280,11 @@ map4 <-
         legend.bg.alpha = .2,
 #        legend.frame = "gray50",
         legend.outside = FALSE,
-        legend.width = .9,
+        legend.width = 1.0,
         legend.height = .3,
         legend.hist.height = .2,
-        legend.title.size = 0.9,
-        legend.text.size = 0.6,
+        legend.title.size = 1.1,
+        legend.text.size = 0.9,
         legend.stack = "horizontal",
 #        bg.color="cornsilk",
         inner.margins = 0) +
