@@ -32,18 +32,19 @@ layoutLayer(title = "Population Distribution in Martinique",
 # north arrow
 north(pos = "topleft")
 
-plot(st_geometry(mtq), col = pals::ocean.phase(7), border = NA, bg = "#deffff")
+
+# -----------UPDATE 2025------------>
+
+plot(st_geometry(mtq), col = NA, border = NA, bg = "mintcream")
 # Plot the population density
 choroLayer(x = mygrid, var = "POPDENS", method = "geom", nclass=20,
            col = pals::parula(20),
-           lwd = 0.5, legend.pos = "bottomleftextra", add = TRUE,
+           lwd = 0.5, legend.pos = "bottomleftextra", add = T,
            legend.title.txt = "Population Density\n(people per km2)")
-layoutLayer(title = "Population Distribution in Martinique",
-            sources = "Sources: Insee and IGN, 2018",
-            author = paste0("cartography ", packageVersion("cartography")),
-            frame = FALSE, north = FALSE, tabtitle = TRUE,
+layoutLayer(title = "Population Density in Martinique",
+            sources = "Sources: Insee and IGN, 2025",
+            author = paste0("R: cartography ", packageVersion("cartography")),
+            frame = T, north = T, tabtitle = T,
             theme = "turquoise.pal")
 # north arrow
-north(pos = "topright")
-
-bquote(Population Density\n(people per~(km^2))
+north(pos = "topleft")
