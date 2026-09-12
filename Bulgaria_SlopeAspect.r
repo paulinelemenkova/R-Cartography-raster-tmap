@@ -1,3 +1,21 @@
+# ============================================================================
+# DEM-based terrain relief of Bulgaria in R (tmap + raster): slope, aspect,
+# hillshade and elevation mapping
+#
+# This script produced the R figures in the peer-reviewed article:
+#   Lemenkova, P. (2022). Geocomputation of DEM Based Terrain Relief in Bulgaria
+#   Using GMT and R Scripting Approaches. Annual of the University of
+#   Architecture, Civil Engineering and Geodesy (UACEG), Sofia, 55(1), 169-181.
+#   DOI (Zenodo): https://doi.org/10.5281/zenodo.6405154
+#   HAL:          https://hal.science/hal-03627173
+#   SSRN:         https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4072391
+#
+# The article combines GMT and R; this repository holds the R (tmap/raster)
+# scripts.
+#
+# Author: Polina Lemenkova  |  ORCID: 0000-0002-5759-1089
+# ============================================================================
+
 # Hillshade map. Hillshade maps show the topographical shape of hills and mountains using levels of gray on a map. The role of this kind of maps is to display relative slopes, but not absolute height. https://geocompr.github.io/geocompkg/articles/maps.html
 # set working directory to data folder
 setwd("/Users/pauline/")
